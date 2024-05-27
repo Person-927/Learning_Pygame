@@ -166,9 +166,18 @@ man = player(200, 410, 64,64)
 goblin = enemy(100, 410, 64, 64, 300)
 bullets = []
 shootLoop = 0
+goblin_respawn = 0
 run = True
 while run:
     clock.tick(27)
+
+    if not goblin.visable:
+        pygame.time.delay(10)
+        goblin_respawn += 1
+        if goblin_respawn >= 300:
+            goblin_respawn = 0
+            goblin.health = 10
+            goblin.visable = True
 
     if goblin.visable:
         if man.hitbox[1] < goblin.hitbox[1] + goblin.hitbox[3] and man.hitbox[1] + man.hitbox[3] > goblin.hitbox[1]:
